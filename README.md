@@ -1,2 +1,2 @@
 # home
-General misc stuff
+General java & javascript misc stuff
