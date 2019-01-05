@@ -25,19 +25,19 @@
     //logger messages
     var logMessages = {
         eng:'Logged in',
-        esp:'Logado'
+        esp:'Está logádó'
     };
 
 
     Greetzer.prototype = { //Added methods & prototype just where objects that are being created are pointing at
 
         fullName: function () {
-            return this.firstName + ' ' + this.lastName;
+            return this.firstName + ', ' + this.lastName;
         },
 
         validate: function () {
             if (supportedLangs.indexOf(this.language) === -1)  {
-              throw "Invalid language";
+              throw 'Invalid language';
             }
         },
 
