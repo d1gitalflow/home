@@ -7,18 +7,22 @@
         return new Greetzer.init(firstName,lastName,language);
     };//Trick to never have to always setup the object with the 'new' keyword
 
-    var supportedLangs = ['en','es'];
+    //hidden within the scope of the IIFE and never directly accessible
+    var supportedLangs = ['eng','esp'];
 
+    //informal greetings
     var greetings = {
         eng:'Hello',
         esp:'Hola'
     };
 
+    //formal greetings
     var formalGreetings = {
         eng:'Greetings',
         esp:'Saludos'
     };
 
+    //logger messages
     var logMessages = {
         eng:'Logged in',
         esp:'Logado'
@@ -77,6 +81,27 @@
             this.validate();
             return this;
             
+        },
+        HTMLGreeting:function (selector,formal) { //accepts selector & formal or not greeting
+            if (!$){ //is jQuery loaded?
+                throw 'Error jQuery not loaded';
+            }
+            if (!selector){ //is selector passed?
+                throw 'Error missing selector';
+            }
+
+            var msg; //determines the message
+            if (formal){ //if formal = empty = false.
+                msg = this.formalGreeting();
+            }
+            else{
+                msg = this.greeting()
+            }
+
+            $(selector).html(msg); //inject msg in the chosen place in the DOM
+
+            return this; //makes it chainable
+            
         }
 
 
@@ -87,11 +112,14 @@
         self.firstName = firstName || '';                     //gives it 3 properties
         self.lastName = lastName || '';                       //if you don't pass anything you get defaults
         self.language = language || 'eng';
+
+        self.validate();
     };
 
     //Points the function contructor to Greetzer.prototype, jQuery Style.
     //objects created with Greetzer.init point to Greezer.ptototype in its
     //prototype chain
+    //trick borrowed from jQuery so we don't have to type the 'new' keyword
     Greetzer.init.prototype = Greetzer.prototype;
 
 
